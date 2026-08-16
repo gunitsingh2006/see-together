@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { Loader2, Clapperboard } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { createRoom } from "@/lib/rooms.functions";
+import { btnPrimary } from "./styles";
 
 export function CreateRoom() {
   const navigate = useNavigate();
@@ -26,10 +26,10 @@ export function CreateRoom() {
 
   return (
     <div className="space-y-3">
-      <Button size="lg" className="w-full" onClick={handleCreate} disabled={loading}>
-        {loading ? <Loader2 className="animate-spin" /> : <Clapperboard />}
+      <button type="button" className={btnPrimary} onClick={handleCreate} disabled={loading}>
+        {loading ? <Loader2 className="size-4 animate-spin" /> : <Clapperboard className="size-4" />}
         Create a room
-      </Button>
+      </button>
       {error && <p className="text-sm text-destructive">{error}</p>}
     </div>
   );

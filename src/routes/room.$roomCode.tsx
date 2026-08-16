@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Check, Copy, LogOut, Users, Wifi } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { ShareButton } from "@/components/watch/ShareButton";
+import { btnGhost, btnPrimary } from "@/components/watch/styles";
 import { VideoPlayer } from "@/components/watch/VideoPlayer";
 import { useWatchParty } from "@/hooks/useWatchParty";
 
@@ -70,9 +70,9 @@ function RoomPage() {
       <main className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center gap-4 px-6 text-center">
         <h1 className="text-2xl font-semibold">This room is full</h1>
         <p className="text-muted-foreground">A room holds only two people. Ask for a fresh code.</p>
-        <Button asChild>
-          <Link to="/">Back home</Link>
-        </Button>
+        <Link to="/" className={`${btnPrimary} w-auto`}>
+          Back home
+        </Link>
       </main>
     );
   }
@@ -86,9 +86,14 @@ function RoomPage() {
             <h1 className="font-mono text-3xl font-bold tracking-[0.3em] text-primary">
               {roomCode.toUpperCase()}
             </h1>
-            <Button size="icon" variant="ghost" aria-label="Copy room code" onClick={copyCode}>
-              {copied ? <Check className="text-primary" /> : <Copy />}
-            </Button>
+            <button
+              type="button"
+              className={btnGhost}
+              aria-label="Copy room code"
+              onClick={copyCode}
+            >
+              {copied ? <Check className="size-4 text-primary" /> : <Copy className="size-4" />}
+            </button>
           </div>
         </div>
 
@@ -103,10 +108,10 @@ function RoomPage() {
             />
             {statusLabel}
           </span>
-          <Button variant="ghost" onClick={() => navigate({ to: "/" })}>
-            <LogOut />
+          <button type="button" className={btnGhost} onClick={() => navigate({ to: "/" })}>
+            <LogOut className="size-4" />
             Leave
-          </Button>
+          </button>
         </div>
       </header>
 
