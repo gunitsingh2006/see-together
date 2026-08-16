@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
  * Room "backend" logic. Kept out of the *.functions.ts file so that the
@@ -22,7 +22,7 @@ export type RoomRecord = {
 export async function createRoomRecord(): Promise<RoomRecord> {
   for (let attempt = 0; attempt < 5; attempt++) {
     const roomCode = generateRoomCode();
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("rooms")
       .insert({ room_code: roomCode, user_count: 0 })
       .select("room_code, created_at")
@@ -41,7 +41,7 @@ export async function createRoomRecord(): Promise<RoomRecord> {
 
 /** Look a room up by code. Returns null when it does not exist. */
 export async function findRoom(roomCode: string): Promise<RoomRecord | null> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from("rooms")
     .select("room_code, created_at")
     .eq("room_code", roomCode.toUpperCase())
