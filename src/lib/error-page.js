@@ -1,5 +1,5 @@
-export function renderErrorPage(): string {
-  return `<!doctype html>
+export function renderErrorPage() {
+	return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />

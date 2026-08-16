@@ -1,10 +1,8 @@
-import { transformWithEsbuild } from 'vite';
+import { transformWithOxc } from 'vite';
 import fs from 'node:fs/promises';
-const files = process.argv.slice(2);
-for (const f of files) {
+for (const f of process.argv.slice(2)) {
   const src = await fs.readFile(f, 'utf8');
-  const loader = f.endsWith('.tsx') ? 'tsx' : 'ts';
-  const out = await transformWithEsbuild(src, f, { loader, jsx: 'preserve', target: 'esnext', format: 'esm' });
+  const out = await transformWithOxc(src, f, { lang: f.endsWith('.tsx') ? 'tsx' : 'ts', jsx: 'preserve' });
   const dest = f.replace(/\.tsx$/, '.jsx').replace(/\.ts$/, '.js');
   await fs.writeFile(dest, out.code);
   if (dest !== f) await fs.rm(f);
