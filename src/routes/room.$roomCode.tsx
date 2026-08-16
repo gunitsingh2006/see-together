@@ -141,7 +141,7 @@ function RoomPage() {
       <p className="mt-10 text-xs leading-relaxed text-muted-foreground">
         Video and audio travel directly between the two browsers over WebRTC (STUN:
         stun.l.google.com). The server only passes tiny offer/answer/ICE messages. On strict or
-        corporate networks a TURN server is required to relay media — add its credentials to the
+        corporate networks a TURN server is required to relay media — add its credentials to the{" "}
         <code className="mx-1 rounded bg-muted px-1 py-0.5">iceServers</code> list for production.
       </p>
     </main>
