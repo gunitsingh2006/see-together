@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { MonitorPlay, Volume2, VolumeX, Maximize } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+const iconBtn =
+  "inline-flex size-9 items-center justify-center rounded-lg bg-secondary text-secondary-foreground transition-colors hover:opacity-90";
 
 type VideoPlayerProps = {
   stream: MediaStream | null;
@@ -38,22 +40,22 @@ export function VideoPlayer({ stream, placeholder }: VideoPlayerProps) {
 
       {stream && (
         <div className="absolute bottom-3 right-3 flex gap-2">
-          <Button
-            size="icon"
-            variant="secondary"
+          <button
+            type="button"
+            className={iconBtn}
             aria-label={muted ? "Unmute" : "Mute"}
             onClick={() => setMuted((m) => !m)}
           >
-            {muted ? <VolumeX /> : <Volume2 />}
-          </Button>
-          <Button
-            size="icon"
-            variant="secondary"
+            {muted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
+          </button>
+          <button
+            type="button"
+            className={iconBtn}
             aria-label="Fullscreen"
             onClick={() => videoRef.current?.requestFullscreen?.()}
           >
-            <Maximize />
-          </Button>
+            <Maximize className="size-4" />
+          </button>
         </div>
       )}
     </div>

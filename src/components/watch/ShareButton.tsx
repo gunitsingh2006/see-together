@@ -1,5 +1,5 @@
 import { MonitorUp, MonitorOff } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { btnDanger, btnPrimary } from "./styles";
 
 type ShareButtonProps = {
   isSharing: boolean;
@@ -11,17 +11,17 @@ type ShareButtonProps = {
 export function ShareButton({ isSharing, disabled, onStart, onStop }: ShareButtonProps) {
   if (isSharing) {
     return (
-      <Button variant="destructive" size="lg" onClick={onStop}>
-        <MonitorOff />
+      <button type="button" className={`${btnDanger} w-auto`} onClick={onStop}>
+        <MonitorOff className="size-4" />
         Stop sharing
-      </Button>
+      </button>
     );
   }
 
   return (
-    <Button size="lg" onClick={onStart} disabled={disabled}>
-      <MonitorUp />
+    <button type="button" className={`${btnPrimary} w-auto`} onClick={onStart} disabled={disabled}>
+      <MonitorUp className="size-4" />
       Share tab
-    </Button>
+    </button>
   );
 }

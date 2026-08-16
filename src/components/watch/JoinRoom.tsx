@@ -2,9 +2,8 @@ import { useState, type FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { Loader2, LogIn } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { joinRoom } from "@/lib/rooms.functions";
+import { btnSecondary } from "./styles";
 
 export function JoinRoom() {
   const navigate = useNavigate();
@@ -34,18 +33,18 @@ export function JoinRoom() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
-      <Input
+      <input
         value={code}
         onChange={(e) => setCode(e.target.value.toUpperCase())}
         placeholder="ENTER CODE"
         maxLength={6}
         aria-label="Room code"
-        className="h-12 text-center text-lg font-mono tracking-[0.4em] uppercase"
+        className="h-12 w-full rounded-xl border border-border bg-background px-4 text-center font-mono text-lg uppercase tracking-[0.4em] outline-none placeholder:tracking-normal placeholder:text-muted-foreground focus:border-primary"
       />
-      <Button type="submit" variant="secondary" size="lg" className="w-full" disabled={loading}>
-        {loading ? <Loader2 className="animate-spin" /> : <LogIn />}
+      <button type="submit" className={btnSecondary} disabled={loading}>
+        {loading ? <Loader2 className="size-4 animate-spin" /> : <LogIn className="size-4" />}
         Join room
-      </Button>
+      </button>
       {error && <p className="text-sm text-destructive">{error}</p>}
     </form>
   );
