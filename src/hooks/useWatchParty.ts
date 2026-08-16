@@ -1,7 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
-import { createSignalingChannel, SIGNAL_EVENT, type SignalMessage } from "@/services/signaling";
+import {
+  createSignalingChannel,
+  SIGNAL_EVENT,
+  type SignalBody,
+  type SignalMessage,
+} from "@/services/signaling";
 
 /**
  * STUN discovers your public IP so two browsers behind home routers can talk
@@ -33,7 +38,7 @@ export function useWatchParty(roomCode: string) {
   const ignoreOfferRef = useRef(false);
   const politeRef = useRef(false);
 
-  const send = useCallback((message: Omit<SignalMessage, "from">) => {
+  const send = useCallback((message: SignalBody) => {
     channelRef.current?.send({
       type: "broadcast",
       event: SIGNAL_EVENT,
