@@ -1,18 +1,16 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { Loader2, LogIn } from "lucide-react";
 import { joinRoom } from "@/lib/rooms.functions";
 import { btnSecondary } from "./styles";
-
 export function JoinRoom() {
   const navigate = useNavigate();
   const join = useServerFn(joinRoom);
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  async function handleSubmit(event: FormEvent) {
+  const [error, setError] = useState(null);
+  async function handleSubmit(event) {
     event.preventDefault();
     const roomCode = code.trim().toUpperCase();
     if (roomCode.length !== 6) {
@@ -23,14 +21,16 @@ export function JoinRoom() {
     setError(null);
     try {
       const room = await join({ data: { roomCode } });
-      await navigate({ to: "/room/$roomCode", params: { roomCode: room.roomCode } });
+      await navigate({
+        to: "/room/$roomCode",
+        params: { roomCode: room.roomCode },
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not join that room.");
     } finally {
       setLoading(false);
     }
   }
-
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       <input

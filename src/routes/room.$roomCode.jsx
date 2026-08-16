@@ -5,7 +5,6 @@ import { ShareButton } from "@/components/watch/ShareButton";
 import { btnGhost, btnPrimary } from "@/components/watch/styles";
 import { VideoPlayer } from "@/components/watch/VideoPlayer";
 import { useWatchParty } from "@/hooks/useWatchParty";
-
 export const Route = createFileRoute("/room/$roomCode")({
   head: ({ params }) => {
     const title = `Room ${params.roomCode} — Duo Screen`;
@@ -13,21 +12,31 @@ export const Route = createFileRoute("/room/$roomCode")({
     return {
       meta: [
         { title },
-        { name: "description", content: description },
-        { name: "robots", content: "noindex" },
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
+        {
+          name: "description",
+          content: description,
+        },
+        {
+          name: "robots",
+          content: "noindex",
+        },
+        {
+          property: "og:title",
+          content: title,
+        },
+        {
+          property: "og:description",
+          content: description,
+        },
       ],
     };
   },
   component: RoomPage,
 });
-
 function RoomPage() {
   const { roomCode } = Route.useParams();
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
-
   const {
     status,
     peerCount,
@@ -38,13 +47,11 @@ function RoomPage() {
     startSharing,
     stopSharing,
   } = useWatchParty(roomCode.toUpperCase());
-
   useEffect(() => {
     if (!copied) return;
     const timer = setTimeout(() => setCopied(false), 1800);
     return () => clearTimeout(timer);
   }, [copied]);
-
   async function copyCode() {
     try {
       await navigator.clipboard.writeText(roomCode.toUpperCase());
@@ -53,7 +60,6 @@ function RoomPage() {
       setCopied(false);
     }
   }
-
   const statusLabel =
     status === "full"
       ? "Room is full"
@@ -64,7 +70,6 @@ function RoomPage() {
           : peerConnectionState === "connected"
             ? "Peer-to-peer connected"
             : "Both here — ready to share";
-
   if (status === "full") {
     return (
       <main className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center gap-4 px-6 text-center">
@@ -76,7 +81,6 @@ function RoomPage() {
       </main>
     );
   }
-
   return (
     <main className="mx-auto w-full max-w-5xl px-5 py-8">
       <header className="mb-6 flex flex-wrap items-center justify-between gap-4">
@@ -137,7 +141,9 @@ function RoomPage() {
           </p>
         )}
         {peerCount < 2 && !isSharing && (
-          <p className="text-sm text-muted-foreground">Sharing unlocks when the second person joins.</p>
+          <p className="text-sm text-muted-foreground">
+            Sharing unlocks when the second person joins.
+          </p>
         )}
       </div>
 

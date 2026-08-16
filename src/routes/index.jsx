@@ -2,23 +2,29 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Popcorn } from "lucide-react";
 import { CreateRoom } from "@/components/watch/CreateRoom";
 import { JoinRoom } from "@/components/watch/JoinRoom";
-
 const title = "Duo Screen — Watch together, just the two of you";
 const description =
   "Create a private 2-person room, share a browser tab with screen audio, and watch in sync. Peer-to-peer over WebRTC — no uploads, no accounts.";
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
+      {
+        name: "description",
+        content: description,
+      },
+      {
+        property: "og:title",
+        content: title,
+      },
+      {
+        property: "og:description",
+        content: description,
+      },
     ],
   }),
   component: Index,
 });
-
 function Index() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center px-6 py-16">

@@ -1,25 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { MonitorPlay, Volume2, VolumeX, Maximize } from "lucide-react";
-
 const iconBtn =
   "inline-flex size-9 items-center justify-center rounded-lg bg-secondary text-secondary-foreground transition-colors hover:opacity-90";
-
-type VideoPlayerProps = {
-  stream: MediaStream | null;
-  placeholder: string;
-};
-
-export function VideoPlayer({ stream, placeholder }: VideoPlayerProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
+export function VideoPlayer({ stream, placeholder }) {
+  const videoRef = useRef(null);
   const [muted, setMuted] = useState(true);
-
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     video.srcObject = stream;
     if (stream) void video.play().catch(() => undefined);
   }, [stream]);
-
   return (
     <div className="relative overflow-hidden rounded-2xl border border-border bg-black stage-glow">
       <div className="aspect-video w-full">
