@@ -8,9 +8,11 @@ import { supabase } from "@/integrations/supabase/client";
  * touches the server — that flows peer-to-peer over WebRTC.
  */
 
-export type SignalMessage =
-  | { from: string; type: "desc"; description: RTCSessionDescriptionInit }
-  | { from: string; type: "ice"; candidate: RTCIceCandidateInit };
+export type SignalBody =
+  | { type: "desc"; description: RTCSessionDescriptionInit }
+  | { type: "ice"; candidate: RTCIceCandidateInit };
+
+export type SignalMessage = SignalBody & { from: string };
 
 export const SIGNAL_EVENT = "signal";
 
